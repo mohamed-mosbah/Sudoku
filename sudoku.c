@@ -213,34 +213,34 @@ static void print_struct()
 
 static void ask_for_coordinates(char*x,char*y)
 {
-    int i1,i2;
+    char i1,i2;
     while(1)
     {
         printf("Please enter the row number for your entry(1,2,3...,9) (0 to Reset): ");
-        scanf(" %d",&i1);
-        if(i1==0)
+        scanf(" %c",&i1);
+        if(i1=='0')
         {
             reset();
             return;
         }
-        if((i1>9)||(i1<1))
+        if((i1>'9')||(i1<'1'))
         {
             printf("Not a valid line number.\n");
             continue;
         }
-        *x=i1-1;
+        *x=i1-'0'-1;
         break;
     }
     while(1)
     {
         printf("Please enter the column number for your entry(1,2,3...,9): ");
-        scanf(" %d",&i2);
-        if((i2>9)||(i2<1))
+        scanf(" %c",&i2);
+        if((i2>'9')||(i2<'1'))
         {
             printf("Not a valid line number.\n");
             continue;
         }
-        *y=i2-1;
+        *y=i2-'0'-1;
         break;
     }
 
