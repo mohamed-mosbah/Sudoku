@@ -14,11 +14,17 @@
 #define RE   "\x1b[0m"
 #include <time.h>
 
+typedef enum Valid_status
+{
+    VALID = 1,
+    NOT_VALID = 0,
+} VALIDITY;
+
 void start_game_sudoku();
 static void Print_sudoku_array(char arr[9][9]);
 static char create_valid_entry(char row,char col);
-static char check_valid_entry(char entry,int row,int col);
-static char check_valid_in_subcube(char possible_entry, int row,int col);
+static VALIDITY check_valid_entry(char entry,int row,int col);
+static VALIDITY check_valid_in_subcube(char possible_entry, int row,int col);
 static void init_array();
 static void reverse_array_horizontal();
 static void reverse_array_vertical();
@@ -30,7 +36,7 @@ static char ask_for_number();
 static void clean_user_array();
 static void finished();
 static int check_if_sudoku_solved();
-static int check_if_user_input(int i,int j);
+static VALIDITY check_if_user_input(int i,int j);
 static int flag_reset;
 static void congratulations();
 static void welcome_screen();
@@ -50,11 +56,7 @@ struct coordinates
 struct coordinates user_entries[36];
 static int size_user_entries=0;
 
-enum Valid_status
-{
-    VALID = 1,
-    NOT_VALID = 0,
-};
+
 static char arr[9][9]=        {{5,3,4,6,7,8,9,1,2},
     {6,7,2,1,9,5,3,4,8},
     {1,9,8,3,4,2,5,6,7},

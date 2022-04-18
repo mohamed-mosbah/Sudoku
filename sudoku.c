@@ -7,10 +7,9 @@ void start_game_sudoku()
     return;
 
 }
-static void start_new_game()
+static void start_new_game() //creating a new solvable Soduko pattern
 {
     // Start measuring time
-
     time(&begin);
     int i1 ;
     int i2 ;
@@ -32,9 +31,8 @@ static void start_new_game()
     if(i1)
     {
         array_row__to_col(arr);
-        //reverse_array_horizontal();
     }
-    //Print_solved_array(helperarr);
+
     hide_random_values();
     Print_sudoku_array(arr);
 
@@ -51,7 +49,7 @@ static void start_new_game()
     congratulations();
 }
 
-static void reset()
+static void reset() // deletes all the cells, the user has inputted
 {
     init_user_array();
     size_user_entries=0;
@@ -71,39 +69,40 @@ static void congratulations()
 }
 static void welcome_screen()
 {
-    while(1){
-    system("cls");
-    int action;
-
-    printf(C"\t\t\tWelcome to my Sudoku Game\n\n"RE);
-    printf("1: Start new Game\n");
-    printf("2: Choose difficulty\n");
-    printf("3: How to play\n");
-    printf("4: Exit\n");
-    printf("\nPlease choose an action by entring the corresponding number(1,2,3,4); ");
-
-    scanf(" %d",&action);
-    while((action>4)||(action <1))
+    while(1)
     {
-        printf("Not a valid entry. Please try again ");
+        system("cls");
+        int action;
+
+        printf(C"\t\t\tWelcome to my Sudoku Game\n\n"RE);
+        printf("1: Start new Game\n");
+        printf("2: Choose difficulty\n");
+        printf("3: How to play\n");
+        printf("4: Exit\n");
+        printf("\nPlease choose an action by entring the corresponding number(1,2,3,4); ");
+
         scanf(" %d",&action);
-    }
-    if(action==1)
-    {
-        start_new_game();
-    }
-    else if(action==2)
-    {
-        choose_difficulty();
-    }
-    else if(action==3)
-    {
-        how_to_play();
-    }
-    else if(action==4)
-    {
-        return;
-    }
+        while((action>4)||(action <1))
+        {
+            printf("Not a valid entry. Please try again ");
+            scanf(" %d",&action);
+        }
+        if(action==1)
+        {
+            start_new_game();
+        }
+        else if(action==2)
+        {
+            choose_difficulty();
+        }
+        else if(action==3)
+        {
+            how_to_play();
+        }
+        else if(action==4)
+        {
+            return;
+        }
     }
 
 }
@@ -116,11 +115,6 @@ static void choose_difficulty()
     printf("3: Hard:\n");
     printf("4: Master:\n");
     scanf(" %d",&difficulty);
-}
-
-static void finished()
-{
-    printf("Congratulations!!!!! \n\n\n");
 }
 
 static int check_if_sudoku_solved()
@@ -179,30 +173,31 @@ static void init_user_array()
     }
 }
 
-static char check_valid_entry(char entry,int row,int col)
+static VALIDITY check_valid_entry(char entry,int row,int col) //check if the entered number is repeated in the same row, column, or subcube
 {
     if(arr[row][col]!=' ')
-        return 0;
+        return NOT_VALID;
     else
     {
         for(int i=0; i<9; i++)
         {
             if(((arr[i][col]+48)==entry)&&(i!=row))
             {
-                return 0;
+                return NOT_VALID;
             }
         }
         for(int i=0; i<9; i++)
         {
             if(((arr[row][i]+48)==entry)&&(i!=col))
             {
-                return 0;
+                return NOT_VALID;
             }
         }
         if(!check_valid_in_subcube(entry, row,col))
-            return 0;
+            return NOT_VALID;
         printf("\n\n%d %d %c\n\n",row+1,col+1,entry);
     }
+    return VALID;
 }
 
 static void print_struct()
@@ -219,7 +214,7 @@ static void ask_for_coordinates(char*x,char*y)
     int i1,i2;
     while(1)
     {
-        printf("Please enter the line number for your entry(1,2,3...,9) (0 to Reset): ");
+        printf("Please enter the row number for your entry(1,2,3...,9) (0 to Reset): ");
         scanf(" %d",&i1);
         if(i1==0)
         {
@@ -344,7 +339,7 @@ static void Print_sudoku_array(char arr[9][9])
             if((arr[i][j]<10)||((arr[i][j]>48)&&(arr[i][j]<59)))
             {
                 int returned = check_if_user_input(i,j);
-                if(returned)
+                if(returned) //printing in Green if this is a cell filled by the user
                 {
                     printf(G" %c "RE, arr[i][j]);
                 }
@@ -367,18 +362,18 @@ static void Print_sudoku_array(char arr[9][9])
     printf("\n\n\n");
 }
 
-static int check_if_user_input(int num1,int num2)
+static VALIDITY check_if_user_input(int num1,int num2)
 {
 
     for(int i=0; i<size_user_entries; i++)
     {
         if((user_entries[i].x==num1)&&(user_entries[i].y==num2))
-            return 1;
+            return VALID;
     }
-    return 0;
+    return NOT_VALID;
 }
 
-static char check_valid_in_subcube(char possible_entry, int row,int col)
+static VALIDITY check_valid_in_subcube(char possible_entry, int row,int col)
 {
     row= (row/3)*3;
     col= (col/3)*3;
@@ -388,10 +383,10 @@ static char check_valid_in_subcube(char possible_entry, int row,int col)
         for(int j=col; j<col+3; j++)
         {
             if((possible_entry==arr[i][j])||(possible_entry==user_arr[i][j]))
-                return 0;
+                return NOT_VALID;
         }
     }
-    return 1;
+    return VALID;
 }
 
 
