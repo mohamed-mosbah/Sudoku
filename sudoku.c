@@ -264,7 +264,7 @@ static char ask_for_number()
 
 static void hide_random_values()
 {
-    int clearboxes=1;
+    int clearboxes=9;
     int j=0;
     for(int z=0; z<clearboxes; z++)
     {
