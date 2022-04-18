@@ -1,4 +1,4 @@
-<h1 align="center">Soduko</h1>
+<h1 align="center">Sudoku</h1>
 
 This is a personal Project, in which I have programmed a Soduko console game from scratch. The main purpose of this project is to practice my programming skills using C, especially working with 2D-Arrays.
 
