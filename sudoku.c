@@ -246,18 +246,17 @@ static void ask_for_coordinates(char*x,char*y)
 
 static char ask_for_number()
 {
-    int c;
+    char c;
     while(1)
     {
         printf("Please enter a number (1,2,3,....,9): ");
-        scanf(" %d",&c);
-        if((c>9)||(c<1))
+        scanf(" %c",&c);
+        if((c>'9')||(c<'1'))
         {
             printf("Not a valid entry. Please try again(1,2,3,....,9): \n");
             continue;
         }
-        char x=c+48;
-        return x;
+        return c;
     }
 }
 
