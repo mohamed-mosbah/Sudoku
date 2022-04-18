@@ -65,6 +65,8 @@ static void congratulations()
     time_t seconds= elapsed%60;
     printf(G"\n\n\n\tCongratulations."RE" You finished in %ld minutes %ld seconds. \n",minutes,seconds);
     printf("\n\n\nPress an key to go to main screen. \n");
+    reset_arr();
+    reset();
     getch();
 }
 static void welcome_screen()
@@ -262,7 +264,7 @@ static char ask_for_number()
 
 static void hide_random_values()
 {
-    int clearboxes=9;
+    int clearboxes=1;
     int j=0;
     for(int z=0; z<clearboxes; z++)
     {
@@ -399,4 +401,16 @@ static void how_to_play()
 
     printf("\n\nPress any key to go to the main screen");
     getch();
+}
+
+
+static void reset_arr() //
+{
+    for (int x=0; x<9; x++)
+    {
+        for (int y=0; y<9; y++)
+        {
+            arr[x][y] = helperarr[x][y];
+        }
+    }
 }

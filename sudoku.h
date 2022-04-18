@@ -41,6 +41,7 @@ static int flag_reset;
 static void congratulations();
 static void welcome_screen();
 static void choose_difficulty();
+static void reset_arr();
 static void add_num_to_grid_interactive();
 static void init_user_array();
 static void ask_for_coordinates(char*x,char*y);
@@ -57,7 +58,8 @@ struct coordinates user_entries[36];
 static int size_user_entries=0;
 
 
-static char arr[9][9]=        {{5,3,4,6,7,8,9,1,2},
+static char arr[9][9]=      {
+    {5,3,4,6,7,8,9,1,2},
     {6,7,2,1,9,5,3,4,8},
     {1,9,8,3,4,2,5,6,7},
     {8,5,9,7,6,1,4,2,3},
@@ -68,7 +70,8 @@ static char arr[9][9]=        {{5,3,4,6,7,8,9,1,2},
     {3,4,5,2,8,6,1,7,9}
 };
 
-static char helperarr[9][9]=  {{1,2,3,4,5,6,7,8,9},
+static char helperarr[9][9]=  {
+    {1,2,3,4,5,6,7,8,9},
     {4,5,6,7,8,9,1,2,3},
     {7,8,9,1,2,3,4,5,6},
     {2,3,1,5,6,4,8,9,7},
